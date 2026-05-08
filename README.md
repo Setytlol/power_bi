@@ -8,7 +8,7 @@ Este repositório gera um conjunto de arquivos Excel de grande volume para simul
 
 - Script gerador: `scripts/generate_data.py`
 - Saída de dados: `data/*.xlsx`
-- Reprodutível: `np.random.seed(42)`, `random.seed(42)`, `Faker(locale='pt_BR')`
+- Reprodutível: `np.random.seed(42)`, `random.seed(42)`, `Faker('pt_BR')`
 
 ## Modelo de dados (estrela/floco)
 
