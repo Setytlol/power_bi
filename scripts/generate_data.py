@@ -25,6 +25,7 @@ N_PRODUTOS = 500
 N_CLIENTES = 10_000
 N_FUNCIONARIOS = 150
 N_VENDAS_ITENS = 220_000
+MAX_ROWS_PER_SHEET = 1_000_000
 N_ESTOQUE = 105_000
 N_COMPRAS = 5_000
 N_ATENDIMENTOS = 20_000
@@ -294,7 +295,7 @@ def _generate_dim_clientes(df_lojas: pd.DataFrame) -> pd.DataFrame:
     niveis = ["Iniciante", "Intermediário", "Avançado"]
     data = []
     for i in range(1, N_CLIENTES + 1):
-        data_nasc = _rand_from_range(
+        data_nascimento = _rand_from_range(
             pd.Timestamp("1955-01-01"), pd.Timestamp("2008-12-31"), 1
         )[0]
         data_cadastro = _rand_from_range(pd.Timestamp("2020-01-01"), DATE_END, 1)[0]
@@ -303,7 +304,7 @@ def _generate_dim_clientes(df_lojas: pd.DataFrame) -> pd.DataFrame:
                 "id_cliente": i,
                 "nome": fake.name(),
                 "cpf": fake.cpf(),
-                "data_nascimento": data_nasc.date(),
+                "data_nascimento": data_nascimento.date(),
                 "genero": random.choice(["Masculino", "Feminino", "Outro"]),
                 "email": fake.email(),
                 "telefone": fake.phone_number(),
@@ -816,7 +817,7 @@ def _validate_integridade(references):
 
 
 def _save_excel(df: pd.DataFrame, path: Path, split_by_year: bool = False, date_col: str = "data_venda"):
-    if split_by_year and len(df) > 1_000_000:
+    if split_by_year and len(df) > MAX_ROWS_PER_SHEET:
         with pd.ExcelWriter(path, engine="openpyxl") as writer:
             for year, part in df.groupby(pd.to_datetime(df[date_col]).dt.year):
                 part.to_excel(writer, index=False, sheet_name=f"{year}")
