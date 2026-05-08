@@ -70,7 +70,7 @@ MARCAS = [
     "Optimum Nutrition",
     "Black Skull",
     "Dux Nutrition",
-    "Atlhetica",
+    "Athletica",
     "Dark Lab",
     "Universal",
 ]
@@ -141,7 +141,7 @@ def _generate_dim_fornecedores() -> pd.DataFrame:
                 "razao_social": fake.company() + " LTDA",
                 "nome_fantasia": fake.company(),
                 "cnpj": fake.cnpj(),
-                "inscricao_estadual": str(np.random.randint(10**8, 10**12 - 1)),
+                "inscricao_estadual": str(np.random.randint(10**8, 10**9 - 1)),
                 "endereco": fake.street_address(),
                 "cidade": fake.city(),
                 "estado": estado,
